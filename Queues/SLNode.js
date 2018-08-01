@@ -4,15 +4,30 @@ function SLNode(value){
 }
 
 
+function SLStack(){
+    this.head = null;
+    this.isEmpty = function(){
+        return this.head === null;
+    }
+    this.hasOne = function(){
+        return (!this.isEmpty()) && this.head.next == null;
+    }
+}
 function SLQueue(){
     this.head = null;
     this.tail = null;
     this.isEmpty = function(){
         return this.head === null;
     }
-    this.enqueue = function(val){
+    this.hasOne = function(){
+        return (!this.isEmpty()) && this.head.next == null;
+    }
+   
+}
 
-        // WE were going down a bad path!!!
+SLQueue.prototype.enqueue = function(val){
+    
+    // WE were going down a bad path!!!
         // Heres a possible way we can do this
         
         // 1) init new node with val
@@ -39,8 +54,53 @@ function SLQueue(){
         curr.next = newNode;
 
         return this;
-    }
 }
 
-var test = new SLQueue();
-test.enqueue(1).enqueue(2);
+SLQueue.prototype.dequeue = function(val){
+    // which node to remove? the first one!
+
+    // return -1 if empty
+    if(this.isEmpty())
+        return -1;
+
+    // get value for later
+    var valToReturn = this.head.value;
+
+    // what if only one?
+    if(this.hasOne()) {
+        this.head = null;
+        this.tail = null;
+        return valToReturn;
+    }
+    
+    this.head = this.head.next;
+    return valToReturn;
+
+}
+SLStack.prototype.push = function(val){
+    var newNode = new SLNode(val);
+
+    // if(this.isEmpty()){
+    //     this.head = newNode;
+    //     return;
+    // }
+
+    // address pointer of new node
+    newNode.next = this.head;
+
+    this.head = newNode;
+    return this;
+
+}
+
+SLStack.prototype.pop = function(){
+    if(this.isEmpty())
+        return -1;
+
+    var valToReturn = this.head.value;
+
+    this.head = this.head.next;
+    return valToReturn;
+}
+
+var test = new SLStack();
