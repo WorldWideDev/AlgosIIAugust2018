@@ -3,6 +3,10 @@ function SLNode(value){
     this.next = null;
 }
 
+function Song(title, artist){
+    this.title = title;
+    this.artist = artist;
+}
 
 function SLStack(){
     this.head = null;
